@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package adber.account.v1;
 
-option go_package = "account-service/api/account/v1;v1";
+option go_package = "api/account/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.user.v1";
 
