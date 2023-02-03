@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package adber.common;
+
+option go_package = "finance-service/api/finance/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.finance.v1";
+
+// 金额
+message Amount {
+  // ISO-4217 货币代码
+  // see https://zh.wikipedia.org/zh-hans/ISO_4217
+  string currency = 1;
+  float value = 2;
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package adber.account.v1;
+
+option go_package = "account-service/api/account/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.brand.v1";
+
+enum Role {
+	Guest = 0;
+	Owner = 1;
+	Admin = 2;
+	Member = 3;
+	Client = 4;
+}
