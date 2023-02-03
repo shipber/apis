@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package adber.finance.v1.enums;
+
+option go_package = "finance-service/api/finance/v1/enums;enums";
+option java_multiple_files = true;
+option java_package = "api.finance.v1.enums";
+
+message TransactionEventNameEnum {
+  enum TransactionEventName {
+    LabelPurchased = 0;
+    Refund = 1;
+    Adjustment = 2;
+    SystemFixed = 3;
+    ShipmentProcessing = 4;
+    AddressChange = 5;
+    Principal = 6;
+    Repayment = 7;
+    Wire = 8;
+    Check = 9;
+    Paypal = 10;
+  }
+}

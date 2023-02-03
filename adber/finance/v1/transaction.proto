@@ -3,36 +3,16 @@ syntax = "proto3";
 package adber.finance.v1;
 
 import "google/protobuf/timestamp.proto";
-import "adber/common/amount.proto";
+import "adber/finance/v1/common/amount.proto";
+import "adber/finance/v1/enums/transaction_event_name.proto";
+import "adber/finance/v1/enums/transaction_event_type.proto";
 
-option go_package = "api/transaction/v1;v1";
+option go_package = "finance-service/api/finance/v1;v1";
 option java_multiple_files = true;
-option java_package = "api.finance.v1";
+option java_package = "adber.finance.v1";
 
 service Transaction {
   rpc ListTransaction (ListTransactionRequest) returns (ListTransactionReply);
-}
-
-enum TransactionEventType {
-  Deposit = 0;
-  Loan = 1;
-  Shipment = 2;
-  Entry = 3;
-  Fulfillment = 4;
-}
-
-enum TransactionEventName {
-  LabelPurchased = 0;
-  Refund = 1;
-  Adjustment = 2;
-  SystemFixed = 3;
-  ShipmentProcessing = 4;
-  AddressChange = 5;
-  Principal = 6;
-  Repayment = 7;
-  Wire = 8;
-  Check = 9;
-  Paypal = 10;
 }
 
 message ListTransactionRequest {
@@ -42,8 +22,8 @@ message ListTransactionRequest {
   repeated int32 user_ids = 4;
   optional google.protobuf.Timestamp date_gte = 5;
   optional google.protobuf.Timestamp date_lte = 6;
-  repeated TransactionEventType event_types = 7;
-  repeated TransactionEventName event_names = 8;
+  repeated adber.finance.v1.enums.TransactionEventTypeEnum.TransactionEventType event_types = 7;
+  repeated adber.finance.v1.enums.TransactionEventNameEnum.TransactionEventName event_names = 8;
 }
 message ListTransactionReply {
   message Transaction {
@@ -51,10 +31,10 @@ message ListTransactionReply {
     int32 brand_id = 2;
     int32 user_id = 3;
     string transaction_number = 4;
-    adber.common.Amount amount = 5;
+    adber.finance.v1.common.Amount amount = 5;
     float balance = 6;
-    TransactionEventType event_type = 7;
-    TransactionEventName event_name = 8;
+    adber.finance.v1.enums.TransactionEventTypeEnum.TransactionEventType event_type = 7;
+    adber.finance.v1.enums.TransactionEventNameEnum.TransactionEventName event_name = 8;
     string event_num = 9;
     string remark = 10;
     google.protobuf.Timestamp created_at = 11;
