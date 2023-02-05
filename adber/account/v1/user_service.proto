@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package adber.account.v1;
+
+option go_package = "api/account/v1;v1";
+option java_multiple_files = true;
+option java_package = "adber.account.v1";
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (GetUserReply);
+  rpc ValidateUser (ValidateUserRequest) returns (ValidateUserReply);
+}
+
+message GetUserRequest {
+  oneof user_find_one {
+    int32 id = 1;
+    string email = 2;
+  }
+}
+message GetUserReply {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string avatar = 4;
+  string mobile = 5;
+  string company = 6;
+  string address = 7;
+}
+
+message ValidateUserRequest {
+  string email = 2;
+  string password = 3;
+}
+message ValidateUserReply {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string avatar = 4;
+  string mobile = 5;
+  string company = 6;
+  string address = 7;
+}
