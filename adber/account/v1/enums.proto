@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-package adber.account.v1.enums;
+package adber.account.v1;
 
-option go_package = "account-service/api/account/v1/enums;enums";
+option go_package = "api/account/v1;v1";
 option java_multiple_files = true;
 option java_package = "adber.account.v1.enums";
 
+// 品牌成员的角色
 message RoleEnum {
   enum Role {
     Guest = 0;

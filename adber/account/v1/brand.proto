@@ -2,13 +2,13 @@ syntax = "proto3";
 
 package adber.account.v1;
 
-import "adber/account/v1/enums/role.proto";
+import "adber/account/v1/enums.proto";
 
-option go_package = "account-service/api/account/v1;v1";
+option go_package = "api/account/v1;v1";
 option java_multiple_files = true;
 option java_package = "adber.account.v1";
 
-service Brand {
+service BrandService {
   rpc CreateBrand (CreateBrandRequest) returns (CreateBrandReply);
   rpc UpdateBrand (UpdateBrandRequest) returns (UpdateBrandReply);
   rpc GetBrand (GetBrandRequest) returns (GetBrandReply);
@@ -61,7 +61,7 @@ message ListMemberReply {
     int32 user_id = 2;
     string name = 3;
     string email = 4;
-    adber.account.v1.enums.RoleEnum.Role role = 5;
+    RoleEnum.Role role = 5;
     string address = 6;
     string mobile = 7;
     string company = 8;
@@ -81,7 +81,7 @@ message ValidateMemberReply {
   int32 user_id = 2;
   string name = 3;
   string email = 4;
-  adber.account.v1.enums.RoleEnum.Role role = 5;
+  RoleEnum.Role role = 5;
   string address = 6;
   string mobile = 7;
   string company = 8;

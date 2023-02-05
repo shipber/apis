@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package adber.finance.v1;
+
+option go_package = "api/finance/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.finance.v1.enums";
+
+// 账单类型
+message ClientInvoiceTypeEnum {
+  enum ClientInvoiceType {
+    Unknown = 0;
+    Shipment = 1;
+    Entry = 2;
+    Fulfillment = 3;
+    Deposit = 4;
+    Loan = 5;
+  }
+}
+
+// 账单状态
+message ClientInvoiceStatusEnum {
+  enum ClientInvoiceStatus {
+    Unknown = 0;
+    Processing = 1;
+    Completed = 2;
+  }
+}
+
+// 交易流水事件名称
+message TransactionEventNameEnum {
+  enum TransactionEventName {
+    Unknown = 0;
+    LabelPurchased = 1;
+    Refund = 2;
+    Adjustment = 3;
+    SystemFixed = 4;
+    ShipmentProcessing = 5;
+    AddressChange = 6;
+    Principal = 7;
+    Repayment = 8;
+    Wire = 9;
+    Check = 10;
+    Paypal = 11;
+  }
+}
+
+// 交易流水事件类型
+message TransactionEventTypeEnum {
+  enum TransactionEventType {
+    Unknown = 0;
+    Deposit = 1;
+    Loan = 2;
+    Shipment = 3;
+    Entry = 4;
+    Fulfillment = 5;
+  }
+}

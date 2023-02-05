@@ -3,31 +3,17 @@ syntax = "proto3";
 package adber.finance.v1;
 
 import "google/protobuf/timestamp.proto";
-import "adber/finance/v1/common/amount.proto";
+import "adber/finance/v1/amount.proto";
+import "adber/finance/v1/enums.proto";
 
-option go_package = "finance-service/api/finance/v1;v1";
+option go_package = "api/finance/v1;v1";
 option java_multiple_files = true;
 option java_package = "adber.finance.v1";
 
-service ClientInvoice {
+service ClientInvoiceService {
   rpc ListClientInvoice (ListClientInvoiceRequest) returns (ListClientInvoiceReply);
   rpc SaveClientInvoiceSchedule (SaveClientInvoiceScheduleRequest) returns (SaveClientInvoiceScheduleReply);
   rpc GetClientInvoiceSchedule (GetClientInvoiceScheduleRequest) returns (GetClientInvoiceScheduleReply);
-}
-
-// 账单状态
-enum ClientInvoiceStatus {
-  Processing = 0;
-  Completed = 1;
-}
-
-// 账单类型
-enum ClientInvoiceType {
-  Shipment = 0;
-  Entry = 1;
-  Fulfillment = 2;
-  Deposit = 3;
-  Loan = 4;
 }
 
 message ListClientInvoiceRequest {
@@ -35,8 +21,8 @@ message ListClientInvoiceRequest {
   int32 offset = 2;
   int32 brand_id = 3;
   repeated int32 user_ids = 4;
-  repeated ClientInvoiceStatus status = 5;
-  repeated ClientInvoiceType types = 6;
+  repeated ClientInvoiceStatusEnum.ClientInvoiceStatus status = 5;
+  repeated ClientInvoiceTypeEnum.ClientInvoiceType types = 6;
   optional float amount_gte = 7;
   optional float amount_lte = 8;
   optional google.protobuf.Timestamp invoice_date_gte = 9;
@@ -50,12 +36,12 @@ message ListClientInvoiceReply {
     int32 user_id = 2;
     string invoice_number = 3;
     google.protobuf.Timestamp invoice_date = 4;
-    ClientInvoiceType type = 5;
-    ClientInvoiceStatus status = 6;
+    ClientInvoiceTypeEnum.ClientInvoiceType type = 5;
+    ClientInvoiceStatusEnum.ClientInvoiceStatus status = 6;
     message Item {
       string name = 1;
       string description = 2;
-      adber.finance.v1.common.Amount amount = 3;
+      Amount amount = 3;
       int32 qty = 4;
       float rate = 5;
     }
