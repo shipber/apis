@@ -46,6 +46,8 @@ message ListClientInvoiceReply {
       float rate = 5;
     }
     repeated Item items = 7;
+    google.protobuf.Timestamp transaction_start_time = 8;
+    google.protobuf.Timestamp transaction_end_time = 9;
   }
   repeated ClientInvoice nodes = 2;
 }
