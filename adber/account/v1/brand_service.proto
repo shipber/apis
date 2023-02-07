@@ -60,7 +60,8 @@ message ListMemberReply {
     int32 brand_id = 1;
     int32 user_id = 2;
     string name = 3;
-    string email = 4; RoleEnum.Role role = 5;
+    string email = 4;
+    RoleEnum.Role role = 5;
     string address = 6;
     string mobile = 7;
     string company = 8;
