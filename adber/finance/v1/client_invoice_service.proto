@@ -48,10 +48,11 @@ message ListClientInvoiceReply {
     repeated Item items = 7;
     google.protobuf.Timestamp transaction_start_time = 8;
     google.protobuf.Timestamp transaction_end_time = 9;
+    int32 id = 10;
   }
   repeated ClientInvoice nodes = 2;
 }
-
+e
 message SaveClientInvoiceScheduleRequest {
   int32 brand_id = 1;
   int32 user_id = 2;
