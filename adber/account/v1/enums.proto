@@ -9,10 +9,11 @@ option java_package = "adber.account.v1.enums";
 // 品牌成员的角色
 message RoleEnum {
   enum Role {
-    Guest = 0;
+    Unknown = 0;
     Owner = 1;
     Admin = 2;
-    Member = 3;
-    Client = 4;
+    Client = 3;
+    Guest = 4;
+    Staff = 5;
   }
 }
