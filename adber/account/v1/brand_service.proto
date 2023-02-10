@@ -11,7 +11,6 @@ option java_package = "adber.account.v1";
 service BrandService {
   rpc CreateBrand (CreateBrandRequest) returns (CreateBrandReply);
   rpc UpdateBrand (UpdateBrandRequest) returns (UpdateBrandReply);
-  rpc GetBrand (GetBrandRequest) returns (GetBrandReply);
   rpc ListBrand (ListBrandRequest) returns (ListBrandReply);
   rpc InviteMember (InviteMemberRequest) returns (InviteMemberReply);
   rpc ListMember (ListMemberRequest) returns (ListMemberReply);
@@ -24,26 +23,41 @@ message CreateBrandReply {}
 message UpdateBrandRequest {}
 message UpdateBrandReply {}
 
-message GetBrandRequest {
-  oneof sign {
-    int32 brand_id = 1;
+message ListBrandRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+  repeated int32 brand_ids = 3;
+  repeated string names = 4;
+  repeated string cname_records = 5;
+}
+message ListBrandReply {
+  message Brand {
+    message Logo {
+      string small = 1;
+      string medium = 2;
+      string medium_reversed = 3;
+      string favicon = 4;
+    }
+    int32 id = 1;
     string name = 2;
-    string cname = 3;
+    string title = 3;
+    string cname = 4; // Deprecated
+    string domain = 5;
+    string welcome_slogan = 6;
+    string company_name = 7;
+    string employee_number = 8;
+    Logo logo = 9;
+    bool is_reconciliation_enable = 10;
+    string language = 11;
   }
+  int32 total = 1;
+  repeated Brand nodes = 2;
 }
-message GetBrandReply {
-  int32 id = 1;
-  string name = 2;
-  string title = 3;
-}
-
-message ListBrandRequest {}
-message ListBrandReply {}
 
 message InviteMemberRequest {
   int32 brand_id = 1;
   string email = 2;
-  string role = 3;
+  RoleEnum.Role role = 3;
 }
 message InviteMemberReply {}
 
@@ -54,6 +68,7 @@ message ListMemberRequest {
   repeated int32 user_ids = 4;
   repeated int32 brand_user_ids = 5;
   optional bool deleted = 6;
+  repeated RoleEnum.Role roles = 7;
 }
 message ListMemberReply {
   message Member {
