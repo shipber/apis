@@ -7,36 +7,50 @@ option java_multiple_files = true;
 option java_package = "adber.account.v1";
 
 service UserService {
-  rpc GetUser (GetUserRequest) returns (GetUserReply);
+  rpc ListUser (ListUserRequest) returns (ListUserReply);
   rpc ValidateUser (ValidateUserRequest) returns (ValidateUserReply);
 }
 
-message GetUserRequest {
+message ListUserRequest {
   oneof user_find_one {
     int32 id = 1;
     string email = 2;
   }
 }
-message GetUserReply {
+message ListUserReply {
   int32 id = 1;
+  // 名称
   string name = 2;
+  // 邮箱
   string email = 3;
+  // 头像
   string avatar = 4;
+  // 移动电话
   string mobile = 5;
+  // 公司
   string company = 6;
+  // 地址
   string address = 7;
 }
 
 message ValidateUserRequest {
-  string email = 2;
-  string password = 3;
+  // 账户
+  string username = 1;
+  // 密码
+  string password = 2;
 }
 message ValidateUserReply {
   int32 id = 1;
+  // 名称
   string name = 2;
+  // 邮箱
   string email = 3;
+  // 头像
   string avatar = 4;
+  // 移动电话
   string mobile = 5;
+  // 公司
   string company = 6;
+  // 地址
   string address = 7;
 }

@@ -33,21 +33,34 @@ message ListBrandRequest {
 message ListBrandReply {
   message Brand {
     message Logo {
+      // 小logo
       string small = 1;
+      // 中logo
       string medium = 2;
+      // 中反白logo
       string medium_reversed = 3;
+      // 浏览器标签图标
       string favicon = 4;
     }
     int32 id = 1;
+    // 品牌名称
     string name = 2;
+    // 品牌标题
     string title = 3;
-    string cname = 4; // Deprecated
+    // 使用 brand cname records
+    string cname = 4 [deprecated = true];
+    // 域名
     string domain = 5;
+    // 欢迎语
     string welcome_slogan = 6;
+    // 公司名称
     string company_name = 7;
+    // 公司规模
     string employee_number = 8;
     Logo logo = 9;
+    // 对账功能开关
     bool is_reconciliation_enable = 10;
+    // 语言
     string language = 11;
   }
   int32 total = 1;
@@ -55,8 +68,11 @@ message ListBrandReply {
 }
 
 message InviteMemberRequest {
+  // 品牌ID
   int32 brand_id = 1;
+  // 邮箱
   string email = 2;
+  // 角色
   RoleEnum.Role role = 3;
 }
 message InviteMemberReply {}
@@ -64,41 +80,69 @@ message InviteMemberReply {}
 message ListMemberRequest {
   int32 limit = 1;
   int32 offset = 2;
+  // 品牌ID
   int32 brand_id = 3;
+  // 用户ID
   repeated int32 user_ids = 4;
-  repeated int32 brand_user_ids = 5;
+  // 使用 user_ids 替代
+  repeated int32 brand_user_ids = 5 [deprecated = true];
+  // 是否已经禁用/删除
   optional bool deleted = 6;
+  // 角色
   repeated RoleEnum.Role roles = 7;
 }
 message ListMemberReply {
   message Member {
+    // 品牌ID
     int32 brand_id = 1;
+    // 用户ID
     int32 user_id = 2;
+    // 用户名
     string name = 3;
+    // email
     string email = 4;
+    // 角色
     RoleEnum.Role role = 5;
+    // 地址
     string address = 6;
+    // 移动电话
     string mobile = 7;
+    // 公司
     string company = 8;
-    int32 brand_user_id = 9;
+    // 使用 user_id 替代
+    int32 brand_user_id = 9 [deprecated = true];
+    // 头像
+    string avatar = 10;
   }
   int32 total = 1;
   repeated Member nodes = 2;
 }
 
 message ValidateMemberRequest {
+  // 品牌
   int32 brand_id = 1;
+  // 邮箱
   string email = 2;
+  // 密码
   string password = 3;
 }
 message ValidateMemberReply {
+  // 品牌ID
   int32 brand_id = 1;
+  // 用户ID
   int32 user_id = 2;
+  // 用户名
   string name = 3;
+  // email
   string email = 4;
+  // 角色
   RoleEnum.Role role = 5;
+  // 地址
   string address = 6;
+  // 移动电话
   string mobile = 7;
+  // 公司
   string company = 8;
-  int32 brand_user_id = 9;
+  // 使用 user_id 替代
+  int32 brand_user_id = 9 [deprecated = true];
 }

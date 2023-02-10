@@ -19,42 +19,68 @@ service ClientInvoiceService {
 message ListClientInvoiceRequest {
   int32 limit = 1;
   int32 offset = 2;
+  // 品牌ID
   int32 brand_id = 3;
+  // 用户ID
   repeated int32 user_ids = 4;
+  // 账单状态
   repeated ClientInvoiceStatusEnum.ClientInvoiceStatus status = 5;
+  // 账单类型
   repeated ClientInvoiceTypeEnum.ClientInvoiceType types = 6;
+  // 起始金额
   optional float amount_gte = 7;
+  // 结束金额
   optional float amount_lte = 8;
+  // 账单起始时间
   optional google.protobuf.Timestamp invoice_date_gte = 9;
+  // 账单结束时间
   optional google.protobuf.Timestamp invoice_date_lte = 10;
+  // 关键词
   optional string keyword = 11;
 }
 message ListClientInvoiceReply {
   int32 total = 1;
   message ClientInvoice {
+    // 用户ID
     int32 brand_id = 1;
+    // 用户ID
     int32 user_id = 2;
+    // 账单号
     string invoice_number = 3;
+    // 账单日期
     google.protobuf.Timestamp invoice_date = 4;
+    // 类型
     ClientInvoiceTypeEnum.ClientInvoiceType type = 5;
+    // 状态
     ClientInvoiceStatusEnum.ClientInvoiceStatus status = 6;
     message Item {
+      // 名称
       string name = 1;
+      // 描述
       string description = 2;
+      // 金额
       Amount amount = 3;
+      // 数量
       int32 qty = 4;
+      // 费率
       float rate = 5;
     }
+    // 账单内容
     repeated Item items = 7;
+    // 流水起始时间
     google.protobuf.Timestamp transaction_start_time = 8;
+    // 流水结束时间
     google.protobuf.Timestamp transaction_end_time = 9;
+    // 账单ID
     int32 id = 10;
   }
   repeated ClientInvoice nodes = 2;
 }
 
 message SaveClientInvoiceScheduleRequest {
+  // 用户ID
   int32 brand_id = 1;
+  // 用户ID
   int32 user_id = 2;
   ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
   bool is_active = 4;
@@ -65,14 +91,23 @@ message SaveClientInvoiceScheduleRequest {
   string dow = 9;
 }
 message SaveClientInvoiceScheduleReply {
+  // 用户ID
   int32 brand_id = 1;
+  // 用户ID
   int32 user_id = 2;
+  // 周期
   ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
+  // 是否启用
   bool is_active = 4;
+  // cron 标准表达式的 minutes
   string minutes = 5;
+  // cron 标准表达式的 hours
   string hours = 6;
+  // cron 标准表达式的 day of month
   string dom = 7;
+  // cron 标准表达式的 month month (1 - 12) OR jan,feb,mar,apr ...
   string month = 8;
+  // cron 标准表达式的 day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
   string dow = 9;
 }
 
@@ -83,7 +118,9 @@ message GetClientInvoiceScheduleRequest {
   int32  user_id = 2;
 }
 message GetClientInvoiceScheduleReply {
+  // 用户ID
   int32 brand_id = 1;
+  // 用户ID
   int32 user_id = 2;
   ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
   bool is_active = 4;
