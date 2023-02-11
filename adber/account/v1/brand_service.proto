@@ -122,7 +122,7 @@ message ValidateMemberRequest {
   // 品牌
   int32 brand_id = 1;
   // 邮箱
-  string email = 2;
+  string username = 2;
   // 密码
   string password = 3;
 }
