@@ -50,7 +50,7 @@ message ListClientInvoiceReply {
     // 账单日期
     google.protobuf.Timestamp invoice_date = 4;
     // 类型
-    ClientInvoiceTypeEnum.ClientInvoiceType type = 5;
+    ClientInvoiceTypeEnum.ClientInvoiceType invoice_type = 5;
     // 状态
     ClientInvoiceStatusEnum.ClientInvoiceStatus status = 6;
     message Item {
