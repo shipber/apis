@@ -81,7 +81,7 @@ message ListMemberRequest {
   int32 limit = 1;
   int32 offset = 2;
   // 品牌ID
-  int32 brand_id = 3;
+  repeated int32 brand_ids = 3;
   // 用户ID
   repeated int32 user_ids = 4;
   // 使用 user_ids 替代
@@ -90,6 +90,8 @@ message ListMemberRequest {
   optional bool deleted = 6;
   // 角色
   repeated RoleEnum.Role roles = 7;
+  // 邮箱
+  repeated string emails = 8;
 }
 message ListMemberReply {
   message Member {
