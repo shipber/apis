@@ -12,13 +12,14 @@ option java_package = "adber.finance.v1";
 
 service TransactionService {
   rpc ListTransaction (ListTransactionRequest) returns (ListTransactionReply);
+  rpc ListTransactionInvoiceNumber (ListTransactionInvoiceNumberRequest) returns (ListTransactionInvoiceNumberReply);
 }
 
 message ListTransactionRequest {
   int32 limit = 1;
   int32 offset = 2;
   // 品牌ID
-  int32 brand_id = 3;
+  repeated int32 brand_ids = 3;
   // 用户ID
   repeated int32 user_ids = 4;
   // 流水起始时间
@@ -29,6 +30,15 @@ message ListTransactionRequest {
   repeated TransactionEventTypeEnum.TransactionEventType event_types = 7;
   // 事件名称
   repeated TransactionEventNameEnum.TransactionEventName event_names = 8;
+  optional float amount_gte = 9;
+  optional float amount_lte = 10;
+  optional float credit_gte = 11;
+  optional float credit_lte = 12;
+  optional float debit_get = 13;
+  optional float debit_lte = 14;
+  optional string keyword = 15;
+  repeated int32 transactions_ids = 16;
+  repeated string transactions_numbers = 17;
 }
 message ListTransactionReply {
   message Transaction {
@@ -56,4 +66,17 @@ message ListTransactionReply {
   }
   int32 total = 1;
   repeated Transaction nodes = 2;
+}
+
+message ListTransactionInvoiceNumberRequest {
+  repeated int32 transactions_ids = 1;
+  repeated string transactions_numbers = 2;
+}
+
+message ListTransactionInvoiceNumberReply {
+  message InvoiceNumber {
+    int32 transaction_id = 1;
+    string invoice_number = 2;
+  }
+  repeated InvoiceNumber nodes = 1;
 }
