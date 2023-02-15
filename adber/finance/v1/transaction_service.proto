@@ -70,13 +70,12 @@ message ListTransactionReply {
 
 message ListTransactionInvoiceNumberRequest {
   repeated int32 transactions_ids = 1;
-  repeated string transactions_numbers = 2;
 }
 
 message ListTransactionInvoiceNumberReply {
   message InvoiceNumber {
     int32 transaction_id = 1;
-    string invoice_number = 2;
+    repeated string invoice_numbers = 2;
   }
   repeated InvoiceNumber nodes = 1;
 }

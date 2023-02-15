@@ -14,6 +14,7 @@ service ClientInvoiceService {
   rpc ListClientInvoice (ListClientInvoiceRequest) returns (ListClientInvoiceReply);
   rpc SaveClientInvoiceSchedule (SaveClientInvoiceScheduleRequest) returns (SaveClientInvoiceScheduleReply);
   rpc GetClientInvoiceSchedule (GetClientInvoiceScheduleRequest) returns (GetClientInvoiceScheduleReply);
+  rpc CreateClientInvoice (CreateClientInvoiceRequest) returns (CreateClientInvoiceReply);
 }
 
 message ListClientInvoiceRequest {
@@ -129,4 +130,14 @@ message GetClientInvoiceScheduleReply {
   string dom = 7;
   string month = 8;
   string dow = 9;
+}
+
+message CreateClientInvoiceRequest {
+  int32 brand_id = 1;
+  int32 user_id = 2;
+  google.protobuf.Timestamp transaction_time_gte = 3;
+  google.protobuf.Timestamp transaction_time_lte = 4;
+}
+message CreateClientInvoiceReply {
+  repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
 }
