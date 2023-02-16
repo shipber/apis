@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package adber.finance.v1;
+package adber.financial.v1;
 
-option go_package = "api/finance/v1;v1";
+option go_package = "api/financial/v1;v1";
 option java_multiple_files = true;
-option java_package = "adber.finance.v1.common";
+option java_package = "adber.financial.v1.common";
 
 // 金额
 message Amount {
