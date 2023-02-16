@@ -72,3 +72,8 @@ message TransactionEventTypeEnum {
     Fulfillment = 5;
   }
 }
+
+enum Sort {
+  ASC = 0;
+  DESC = 1;
+}

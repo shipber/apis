@@ -30,15 +30,34 @@ message ListTransactionRequest {
   repeated TransactionEventTypeEnum.TransactionEventType event_types = 7;
   // 事件名称
   repeated TransactionEventNameEnum.TransactionEventName event_names = 8;
+  // 起始金额
   optional float amount_gte = 9;
+  // 结束金额
   optional float amount_lte = 10;
+  // 起始
   optional float credit_gte = 11;
+  // 结束
   optional float credit_lte = 12;
+  // 起始
   optional float debit_get = 13;
+  // 结束
   optional float debit_lte = 14;
+  // 关键词
   optional string keyword = 15;
+  // 流水ID
   repeated int32 transactions_ids = 16;
+  // 流水号
   repeated string transactions_numbers = 17;
+  // 排序
+  message Order {
+    enum Field {
+      Unknown = 0;
+      CreatedAt = 1;
+    }
+    Field field = 1;
+    Sort sort = 2;
+  }
+  repeated Order orders = 18;
 }
 message ListTransactionReply {
   message Transaction {
