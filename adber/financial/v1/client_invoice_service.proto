@@ -38,6 +38,10 @@ message ListClientInvoiceRequest {
   optional google.protobuf.Timestamp invoice_date_lte = 10;
   // 关键词
   optional string keyword = 11;
+  // 账单ID
+  repeated int32 invoice_ids = 12;
+  // 账单号
+  repeated string invoice_numbers = 13;
 }
 message ListClientInvoiceReply {
   int32 total = 1;

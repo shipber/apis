@@ -39,7 +39,7 @@ message ListTransactionRequest {
   // 结束
   optional double credit_lte = 12;
   // 起始
-  optional double debit_get = 13;
+  optional double debit_gte = 13;
   // 结束
   optional double debit_lte = 14;
   // 关键词
