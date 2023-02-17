@@ -29,9 +29,9 @@ message ListClientInvoiceRequest {
   // 账单类型
   repeated ClientInvoiceTypeEnum.ClientInvoiceType types = 6;
   // 起始金额
-  optional float amount_gte = 7;
+  optional double amount_gte = 7;
   // 结束金额
-  optional float amount_lte = 8;
+  optional double amount_lte = 8;
   // 账单起始时间
   optional google.protobuf.Timestamp invoice_date_gte = 9;
   // 账单结束时间

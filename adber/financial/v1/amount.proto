@@ -11,5 +11,5 @@ message Amount {
   // ISO-4217 货币代码
   // see https://zh.wikipedia.org/zh-hans/ISO_4217
   string currency = 1;
-  float value = 2;
+  double value = 2;
 }

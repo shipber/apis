@@ -29,19 +29,19 @@ message ListTransactionRequest {
   // 事件类型
   repeated TransactionEventTypeEnum.TransactionEventType event_types = 7;
   // 事件名称
-  repeated TransactionEventNameEnum.TransactionEventName event_names = 8;
+  repeated string event_names = 8;
   // 起始金额
-  optional float amount_gte = 9;
+  optional double amount_gte = 9;
   // 结束金额
-  optional float amount_lte = 10;
+  optional double amount_lte = 10;
   // 起始
-  optional float credit_gte = 11;
+  optional double credit_gte = 11;
   // 结束
-  optional float credit_lte = 12;
+  optional double credit_lte = 12;
   // 起始
-  optional float debit_get = 13;
+  optional double debit_get = 13;
   // 结束
-  optional float debit_lte = 14;
+  optional double debit_lte = 14;
   // 关键词
   optional string keyword = 15;
   // 流水ID
@@ -71,11 +71,11 @@ message ListTransactionReply {
     // 交易流水金额
     Amount amount = 5;
     // 余额
-    float balance = 6;
+    Amount balance = 6;
     // 交易事件类型
     TransactionEventTypeEnum.TransactionEventType event_type = 7;
     // 交易事件名称
-    TransactionEventNameEnum.TransactionEventName event_name = 8;
+    string event_name = 8;
     // 事件号
     string event_num = 9;
     // 备注
