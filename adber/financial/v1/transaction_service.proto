@@ -56,16 +56,13 @@ message ListTransactionRequest {
     repeated int32 client_invoice_ids = 18;
   }
   Filters filters = 3;
-  // 排序
-  message Order {
-    enum Field {
-      Unknown = 0;
-      CreatedAt = 1;
-    }
-    Field field = 1;
-    Sort sort = 2;
+  // 排序字段
+  enum SortKey {
+    CreatedAt = 0;
   }
-  repeated Order orders = 4;
+  SortKey sort_key = 4;
+  // 是否颠倒顺序（true为倒序/降序）
+  bool reverse = 5;
 }
 message ListTransactionReply {
   message Transaction {
