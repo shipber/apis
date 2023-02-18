@@ -16,7 +16,7 @@ service TransactionService {
 }
 
 message ListTransactionRequest {
-  int32 limit = 1;
+  int32 first = 1;
   int32 offset = 2;
   // 筛选条件
   message Filters {

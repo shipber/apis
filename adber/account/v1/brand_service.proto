@@ -24,11 +24,17 @@ message UpdateBrandRequest {}
 message UpdateBrandReply {}
 
 message ListBrandRequest {
-  int32 limit = 1;
+  int32 first = 1;
   int32 offset = 2;
-  repeated int32 brand_ids = 3;
-  repeated string names = 4;
-  repeated string cname_records = 5;
+  message Filters {
+    // 品牌ID
+    repeated int32 brand_ids = 1;
+    // 品牌名称
+    repeated string names = 2;
+    // 品牌域名 host
+    repeated string cname_records = 3;
+  }
+  Filters filters = 3;
 }
 message ListBrandReply {
   message Brand {
@@ -78,20 +84,23 @@ message InviteMemberRequest {
 message InviteMemberReply {}
 
 message ListMemberRequest {
-  int32 limit = 1;
+  int32 first = 1;
   int32 offset = 2;
-  // 品牌ID
-  repeated int32 brand_ids = 3;
-  // 用户ID
-  repeated int32 user_ids = 4;
-  // 使用 user_ids 替代
-  repeated int32 brand_user_ids = 5 [deprecated = true];
-  // 是否已经禁用/删除
-  optional bool deleted = 6;
-  // 角色
-  repeated RoleEnum.Role roles = 7;
-  // 邮箱
-  repeated string emails = 8;
+  message Filters {
+    // 品牌ID
+    repeated int32 brand_ids = 1;
+    // 用户ID
+    repeated int32 user_ids = 2;
+    // 使用 user_ids 替代
+    repeated int32 brand_user_ids = 3 [deprecated = true];
+    // 是否已经禁用/删除
+    optional bool deleted = 4;
+    // 角色
+    repeated RoleEnum.Role roles = 5;
+    // 邮箱
+    repeated string emails = 6;
+  }
+  Filters filters = 3;
 }
 message ListMemberReply {
   message Member {
