@@ -26,3 +26,7 @@ $ git checkout min
 $ git merge feature/test
 $ git push
 ```
+
+## 设计规范
+
+https://pantao.gitbooks.io/api-design-guide/content/
