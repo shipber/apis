@@ -69,7 +69,7 @@ message ListBrandReply {
     // 语言
     string language = 11;
   }
-  int32 total = 1;
+  int32 total_count = 1;
   repeated Brand nodes = 2;
 }
 
@@ -125,7 +125,7 @@ message ListMemberReply {
     // 头像
     string avatar = 10;
   }
-  int32 total = 1;
+  int32 total_count = 1;
   repeated Member nodes = 2;
 }
 
