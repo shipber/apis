@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package adber.account.v1;
 
+import "google/protobuf/timestamp.proto";
 import "adber/account/v1/enums.proto";
 
 option go_package = "api/account/v1;v1";
@@ -24,17 +25,23 @@ message UpdateBrandRequest {}
 message UpdateBrandReply {}
 
 message ListBrandRequest {
-  int32 first = 1;
+  // 每页数量
+  int32 limit = 1;
+  // 跳过数量
   int32 offset = 2;
-  message Filters {
-    // 品牌ID
-    repeated int32 brand_ids = 1;
-    // 品牌名称
-    repeated string names = 2;
-    // 品牌域名 host
-    repeated string cname_records = 3;
+  // 排序字段
+  enum SortKey {
+    CREATED_AT = 0;
   }
-  Filters filters = 3;
+  SortKey sort_key = 3;
+  // 是否颠倒顺序（true为倒序/降序）
+  bool reverse = 4;
+  // 品牌ID
+  repeated int32 brand_ids = 5;
+  // 品牌名称
+  repeated string names = 6;
+  // 品牌域名 host
+  repeated string cname_records = 7;
 }
 message ListBrandReply {
   message Brand {
@@ -68,6 +75,8 @@ message ListBrandReply {
     bool is_reconciliation_enable = 10;
     // 语言
     string language = 11;
+    // 创建时间
+    google.protobuf.Timestamp created_at = 12;
   }
   int32 total_count = 1;
   repeated Brand nodes = 2;
@@ -79,28 +88,34 @@ message InviteMemberRequest {
   // 邮箱
   string email = 2;
   // 角色
-  RoleEnum.Role role = 3;
+  BrandMemberRoleEnum.BrandMemberRole role = 3;
 }
 message InviteMemberReply {}
 
 message ListMemberRequest {
-  int32 first = 1;
+  // 每页数量
+  int32 limit = 1;
+  // 跳过数量
   int32 offset = 2;
-  message Filters {
-    // 品牌ID
-    repeated int32 brand_ids = 1;
-    // 用户ID
-    repeated int32 user_ids = 2;
-    // 使用 user_ids 替代
-    repeated int32 brand_user_ids = 3 [deprecated = true];
-    // 是否已经禁用/删除
-    optional bool deleted = 4;
-    // 角色
-    repeated RoleEnum.Role roles = 5;
-    // 邮箱
-    repeated string emails = 6;
+  // 排序字段
+  enum SortKey {
+    CREATED_AT = 0;
   }
-  Filters filters = 3;
+  SortKey sort_key = 3;
+  // 是否颠倒顺序（true为倒序/降序）
+  bool reverse = 4;
+  // 品牌ID
+  repeated int32 brand_ids = 5;
+  // 用户ID
+  repeated int32 user_ids = 6;
+  // 使用 user_ids 替代
+  repeated int32 brand_user_ids = 7 [deprecated = true];
+  // 是否已经禁用/删除
+  optional bool deleted = 8;
+  // 角色
+  repeated BrandMemberRoleEnum.BrandMemberRole roles = 9;
+  // 邮箱
+  repeated string emails = 10;
 }
 message ListMemberReply {
   message Member {
@@ -113,7 +128,7 @@ message ListMemberReply {
     // email
     string email = 4;
     // 角色
-    RoleEnum.Role role = 5;
+    BrandMemberRoleEnum.BrandMemberRole role = 5;
     // 地址
     string address = 6;
     // 移动电话
@@ -124,6 +139,8 @@ message ListMemberReply {
     int32 brand_user_id = 9 [deprecated = true];
     // 头像
     string avatar = 10;
+    // 创建时间
+    google.protobuf.Timestamp created_at = 11;
   }
   int32 total_count = 1;
   repeated Member nodes = 2;
@@ -147,7 +164,7 @@ message ValidateMemberReply {
   // email
   string email = 4;
   // 角色
-  RoleEnum.Role role = 5;
+  BrandMemberRoleEnum.BrandMemberRole role = 5;
   // 地址
   string address = 6;
   // 移动电话

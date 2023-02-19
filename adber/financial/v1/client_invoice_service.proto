@@ -18,33 +18,39 @@ service ClientInvoiceService {
 }
 
 message ListClientInvoiceRequest {
-  int32 first = 1;
+  // 每页数量
+  int32 limit = 1;
+  // 跳过数量
   int32 offset = 2;
-  message Filters {
-    // 品牌ID
-    repeated int32 brand_ids = 1;
-    // 用户ID
-    repeated int32 user_ids = 2;
-    // 账单状态
-    repeated ClientInvoiceStatusEnum.ClientInvoiceStatus status = 3;
-    // 账单类型
-    repeated ClientInvoiceTypeEnum.ClientInvoiceType types = 4;
-    // 起始金额
-    optional double amount_gte = 5;
-    // 结束金额
-    optional double amount_lte = 6;
-    // 账单起始时间
-    optional google.protobuf.Timestamp invoice_date_gte = 7;
-    // 账单结束时间
-    optional google.protobuf.Timestamp invoice_date_lte = 8;
-    // 关键词
-    optional string keyword = 9;
-    // 账单ID
-    repeated int32 invoice_ids = 10;
-    // 账单号
-    repeated string invoice_numbers = 11;
+  // 排序字段
+  enum SortKey {
+    CREATED_AT = 0;
   }
-  Filters filters = 3;
+  SortKey sort_key = 3;
+  // 是否颠倒顺序（true为倒序/降序）
+  bool reverse = 4;
+  // 起始金额
+  optional double amount_gte = 5;
+  // 结束金额
+  optional double amount_lte = 6;
+  // 账单起始时间
+  optional google.protobuf.Timestamp invoice_date_gte = 7;
+  // 账单结束时间
+  optional google.protobuf.Timestamp invoice_date_lte = 8;
+  // 关键词
+  optional string keyword = 9;
+  // 账单ID
+  repeated int32 invoice_ids = 10;
+  // 账单号
+  repeated string invoice_numbers = 11;
+  // 品牌ID
+  repeated int32 brand_ids = 12;
+  // 用户ID
+  repeated int32 user_ids = 13;
+  // 账单状态
+  repeated ClientInvoiceStatusEnum.ClientInvoiceStatus status = 14;
+  // 账单类型
+  repeated ClientInvoiceTypeEnum.ClientInvoiceType types = 15;
 }
 message ListClientInvoiceReply {
   int32 total_count = 1;
@@ -90,12 +96,19 @@ message SaveClientInvoiceScheduleRequest {
   int32 brand_id = 1;
   // 用户ID
   int32 user_id = 2;
+  // 周期
   ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
+  // 是否启用
   bool is_active = 4;
+  // cron 标准表达式的 minutes
   string minutes = 5;
+  // cron 标准表达式的 hours
   string hours = 6;
+  // cron 标准表达式的 day of month
   string dom = 7;
+  // cron 标准表达式的 month month (1 - 12) OR jan,feb,mar,apr ...
   string month = 8;
+  // cron 标准表达式的 day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
   string dow = 9;
 }
 message SaveClientInvoiceScheduleReply {
@@ -130,19 +143,30 @@ message GetClientInvoiceScheduleReply {
   int32 brand_id = 1;
   // 用户ID
   int32 user_id = 2;
+  // 周期
   ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
+  // 是否启用
   bool is_active = 4;
+  // cron 标准表达式的 minutes
   string minutes = 5;
+  // cron 标准表达式的 hours
   string hours = 6;
+  // cron 标准表达式的 day of month
   string dom = 7;
+  // cron 标准表达式的 month month (1 - 12) OR jan,feb,mar,apr ...
   string month = 8;
+  // cron 标准表达式的 day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
   string dow = 9;
 }
 
 message CreateClientInvoiceRequest {
+  // 品牌ID
   int32 brand_id = 1;
+  // 用户ID
   int32 user_id = 2;
+  // 交易流水起始范围
   google.protobuf.Timestamp transaction_time_gte = 3;
+  // 交易流水终止范围
   google.protobuf.Timestamp transaction_time_lte = 4;
 }
 message CreateClientInvoiceReply {
