@@ -26,7 +26,7 @@ message ListClientInvoiceRequest {
   enum SortKey {
     CREATED_AT = 0;
   }
-  SortKey sort_key = 3;
+  optional SortKey sort_key = 3;
   // 是否颠倒顺序（true为倒序/降序）
   bool reverse = 4;
   // 起始金额
