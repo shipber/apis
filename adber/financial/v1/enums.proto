@@ -9,71 +9,48 @@ option java_package = "api.financial.v1.enums";
 // 客户账单生成周期
 message ClientInvoicePeriodEnum {
   enum ClientInvoicePeriod {
-    Unknown = 0;
-    Minutely = 1;
-    Hourly = 2;
-    Daily = 3;
-    Weekly = 4;
-    BiWeekly = 5;
-    Monthly = 6;
-    BiMonthly = 7;
-    Quarterly = 8;
-    Yearly = 9;
+    UNKNOWN = 0;
+    MINUTELY = 1;
+    HOURLY = 2;
+    DAILY = 3;
+    WEEKLY = 4;
+    BIWEEKLY = 5;
+    MONTHLY = 6;
+    BIMONTHLY = 7;
+    QUARTERLY = 8;
+    YEARLY = 9;
   }
 }
 
 // 账单类型
 message ClientInvoiceTypeEnum {
   enum ClientInvoiceType {
-    Unknown = 0;
-    Shipment = 1;
-    Entry = 2;
-    Fulfillment = 3;
-    Deposit = 4;
-    Loan = 5;
+    UNKNOWN = 0;
+    SHIPMENT = 1;
+    ENTRY = 2;
+    FULFILLMENT = 3;
+    DEPOSIT = 4;
+    LOAN = 5;
   }
 }
 
 // 账单状态
 message ClientInvoiceStatusEnum {
   enum ClientInvoiceStatus {
-    Unknown = 0;
-    Processing = 1;
-    Completed = 2;
+    UNKNOWN = 0;
+    PROCESSING = 1;
+    COMPLETED = 2;
   }
 }
-
-// 交易流水事件名称
-//message TransactionEventNameEnum {
-//  enum TransactionEventName {
-//    Unknown = 0;
-//    LabelPurchased = 1;
-//    Refund = 2;
-//    Adjustment = 3;
-//    SystemFixed = 4;
-//    ShipmentProcessing = 5;
-//    AddressChange = 6;
-//    Principal = 7;
-//    Repayment = 8;
-//    Wire = 9;
-//    Check = 10;
-//    Paypal = 11;
-//  }
-//}
 
 // 交易流水事件类型
 message TransactionEventTypeEnum {
   enum TransactionEventType {
-    Unknown = 0;
-    Deposit = 1;
-    Loan = 2;
-    Shipment = 3;
-    Entry = 4;
-    Fulfillment = 5;
+    UNKNOWN = 0;
+    DEPOSIT = 1;
+    LOAN = 2;
+    SHIPMENT = 3;
+    ENTRY = 4;
+    FULFILLMENT = 5;
   }
-}
-
-enum Sort {
-  ASC = 0;
-  DESC = 1;
 }

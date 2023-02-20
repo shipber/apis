@@ -7,18 +7,18 @@ option java_multiple_files = true;
 option java_package = "adber.account.v1.enums";
 
 // 品牌成员的角色
-message RoleEnum {
-  enum Role {
-    Unknown = 0;
+message BrandMemberRoleEnum {
+  enum BrandMemberRole {
+    UNKNOWN = 0;
     // 品牌拥有者
-    Owner = 1;
+    OWNER = 1;
     // 品牌管理员
-    Admin = 2;
+    ADMIN = 2;
     // 客户
-    Client = 3;
+    CLIENT = 3;
     // 游客
-    Guest = 4;
+    GUEST = 4;
     // 员工
-    Staff = 5;
+    STAFF = 5;
   }
 }

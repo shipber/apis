@@ -16,53 +16,51 @@ service TransactionService {
 }
 
 message ListTransactionRequest {
-  int32 first = 1;
+  // 每页数量
+  int32 limit = 1;
+  // 跳过数量
   int32 offset = 2;
-  // 筛选条件
-  message Filters {
-    // 品牌ID
-    repeated int32 brand_ids = 1;
-    // 用户ID
-    repeated int32 user_ids = 2;
-    // 流水起始时间
-    optional google.protobuf.Timestamp date_gte = 3;
-    // 流水结束时间
-    optional google.protobuf.Timestamp date_lte = 4;
-    // 事件类型
-    repeated TransactionEventTypeEnum.TransactionEventType event_types = 5;
-    // 事件名称
-    repeated string event_names = 6;
-    // 起始金额
-    optional double amount_gte = 7;
-    // 结束金额
-    optional double amount_lte = 8;
-    // 起始
-    optional double credit_gte = 9;
-    // 结束
-    optional double credit_lte = 10;
-    // 起始
-    optional double debit_gte = 11;
-    // 结束
-    optional double debit_lte = 12;
-    // 关键词
-    optional string keyword = 13;
-    // 流水ID
-    repeated int32 transactions_ids = 14;
-    // 流水号
-    repeated string transactions_numbers = 16;
-    // 账单号
-    repeated string client_invoice_numbers = 17;
-    // 账单ID
-    repeated int32 client_invoice_ids = 18;
-  }
-  Filters filters = 3;
   // 排序字段
   enum SortKey {
-    CreatedAt = 0;
+    CREATED_AT = 0;
   }
-  SortKey sort_key = 4;
+  optional SortKey sort_key = 3;
   // 是否颠倒顺序（true为倒序/降序）
-  bool reverse = 5;
+  bool reverse = 4;
+  // 事件类型
+  repeated TransactionEventTypeEnum.TransactionEventType event_types = 5;
+  // 事件名称
+  repeated string event_names = 6;
+  // 起始金额
+  optional double amount_gte = 7;
+  // 结束金额
+  optional double amount_lte = 8;
+  // 起始
+  optional double credit_gte = 9;
+  // 结束
+  optional double credit_lte = 10;
+  // 起始
+  optional double debit_gte = 11;
+  // 结束
+  optional double debit_lte = 12;
+  // 关键词
+  optional string keyword = 13;
+  // 流水ID
+  repeated int32 transactions_ids = 14;
+  // 流水号
+  repeated string transactions_numbers = 16;
+  // 账单号
+  repeated string client_invoice_numbers = 17;
+  // 账单ID
+  repeated int32 client_invoice_ids = 18;
+  // 品牌ID
+  repeated int32 brand_ids = 19;
+  // 用户ID
+  repeated int32 user_ids = 20;
+  // 流水起始时间
+  optional google.protobuf.Timestamp date_gte = 21;
+  // 流水结束时间
+  optional google.protobuf.Timestamp date_lte = 22;
 }
 message ListTransactionReply {
   message Transaction {
