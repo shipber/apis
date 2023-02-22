@@ -14,11 +14,9 @@ message ClientInvoicePeriodEnum {
     HOURLY = 2;
     DAILY = 3;
     WEEKLY = 4;
-    BIWEEKLY = 5;
-    MONTHLY = 6;
-    BIMONTHLY = 7;
-    QUARTERLY = 8;
-    YEARLY = 9;
+    MONTHLY = 5;
+    QUARTERLY = 6;
+    YEARLY = 7;
   }
 }
 
