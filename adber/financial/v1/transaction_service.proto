@@ -13,6 +13,7 @@ option java_package = "adber.financial.v1";
 service TransactionService {
   rpc ListTransaction (ListTransactionRequest) returns (ListTransactionReply);
   rpc ListTransactionInvoiceNumber (ListTransactionInvoiceNumberRequest) returns (ListTransactionInvoiceNumberReply);
+  rpc DownloadTransaction (ListTransactionRequest) returns (DownloadTransactionReply);
 }
 
 message ListTransactionRequest {
@@ -100,4 +101,8 @@ message ListTransactionInvoiceNumberReply {
     repeated string invoice_numbers = 2;
   }
   repeated InvoiceNumber nodes = 1;
+}
+
+message DownloadTransactionReply {
+  string download_url = 1;
 }
