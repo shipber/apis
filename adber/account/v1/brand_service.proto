@@ -70,13 +70,12 @@ message ListBrandReply {
     string company_name = 7;
     // 公司规模
     string employee_number = 8;
+    // Logo
     Logo logo = 9;
-    // 对账功能开关
-    bool is_reconciliation_enable = 10;
     // 语言
-    string language = 11;
+    string language = 10;
     // 创建时间
-    google.protobuf.Timestamp created_at = 12;
+    google.protobuf.Timestamp created_at = 11;
   }
   int32 total_count = 1;
   repeated Brand nodes = 2;
