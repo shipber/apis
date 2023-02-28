@@ -52,6 +52,10 @@ message SavedSearch {
   string display = 9;
   // 条件
   string filters = 10;
+  // 创建时间
+  google.protobuf.Timestamp created_at = 11;
+  // 更新时间
+  google.protobuf.Timestamp updated_at = 12;
 }
 
 message ListSavedSearchRequest {
@@ -82,10 +86,6 @@ message CreateSavedSearchRequest {
   string display = 8;
   // 条件
   string filters = 9;
-  // 创建时间
-  google.protobuf.Timestamp created_at = 10;
-  // 更新时间
-  google.protobuf.Timestamp updated_at = 11;
 }
 message CreateSavedSearchReply {
   SavedSearch node = 1;
