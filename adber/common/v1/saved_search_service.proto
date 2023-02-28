@@ -19,15 +19,44 @@ service SavedSearchService {
 message ResourceTypeEnum {
   enum ResourceType {
     UNKNOWN = 0;
+    // 商品列表
     PRODUCT = 1;
+    // 订单列表
     ORDER = 2;
-    TRANSACTION = 3;
-    DEPOSIT = 4;
-    ENTRY = 5;
-    LOAN = 6;
-    REFUND = 7;
-    CLIENT_INVOICE = 8;
-    SHIPMENT = 9;
+    // 流水
+    BILL_TRANSACTION = 3;
+    // 充值
+    BILL_DEPOSIT = 4;
+    // 杂费
+    BILL_ENTRY = 5;
+    // 贷款
+    BILL_LOAN = 6;
+    // 退款
+    BILL_REFUND = 7;
+    // 客户账单
+    BILL_CLIENT_INVOICE = 8;
+    // 运单草稿
+    SHIPMENT_DRAFT = 9;
+    // 运单历史
+    SHIPMENT_HISTORY = 11;
+    // 退款单
+    SHIPMENT_RETURN = 12;
+    // 追踪号
+    SHIPMENT_TRACKING = 13;
+    // shipment 地址修正
+    SHIPMENT_ADDRESS_CORRECTION = 14;
+    // 入库申请单
+    INBOUND_REQUEST_FORM = 15;
+    // 账单
+    INVOICE = 16;
+    // 账单明细
+    INVOICE_DETAIL = 17;
+    // 账单-申述单
+    INVOICE_DISPUTE_SHIPMENT = 18;
+    // 仓库库位
+    WAREHOUSE_LOCATION = 19;
+    // 仓库库存
+    WAREHOUSE_INVENTORY = 20;
   }
 }
 
