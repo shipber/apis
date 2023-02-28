@@ -46,7 +46,7 @@ message ResourceTypeEnum {
     // shipment 地址修正
     SHIPMENT_ADDRESS_CORRECTION = 14;
     // 入库申请单
-    INBOUND_REQUEST_FORM = 15;
+    ORDER_INBOUND_REQUEST_FORM = 15;
     // 账单
     INVOICE = 16;
     // 账单明细
@@ -57,6 +57,10 @@ message ResourceTypeEnum {
     WAREHOUSE_LOCATION = 19;
     // 仓库库存
     WAREHOUSE_INVENTORY = 20;
+    // 仓库入库单
+    WAREHOUSE_INBOUND = 21;
+    // 仓库出库单
+    WAREHOUSE_OUTBOUND = 22;
   }
 }
 
