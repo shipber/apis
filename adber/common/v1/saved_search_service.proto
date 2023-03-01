@@ -95,6 +95,7 @@ message ListSavedSearchRequest {
   repeated ResourceTypeEnum.ResourceType resource_types = 1;
   repeated int32 brand_ids = 2;
   repeated int32 user_ids = 3;
+  repeated string keys = 4;
 }
 message ListSavedSearchReply {
   repeated SavedSearch nodes = 1;
