@@ -15,7 +15,7 @@ service ClientInvoiceService {
   rpc SaveClientInvoiceSchedule (SaveClientInvoiceScheduleRequest) returns (SaveClientInvoiceScheduleReply);
   rpc GetClientInvoiceSchedule (GetClientInvoiceScheduleRequest) returns (GetClientInvoiceScheduleReply);
   rpc CreateClientInvoice (CreateClientInvoiceRequest) returns (CreateClientInvoiceReply);
-  rpc RefreshClientInvoice (RefreshClientInvoiceRequest) returns (RefreshClientInvoiceReply);
+  rpc RefreshClientInvoiceBillInfo (RefreshClientInvoiceBillInfoRequest) returns (RefreshClientInvoiceBillInfoReply);
 }
 
 message ListClientInvoiceRequest {
@@ -185,9 +185,9 @@ message CreateClientInvoiceReply {
   repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
 }
 
-message RefreshClientInvoiceRequest {
+message RefreshClientInvoiceBillInfoRequest {
   repeated int32 client_invoice_ids = 1;
 }
-message RefreshClientInvoiceReply {
+message RefreshClientInvoiceBillInfoReply {
   repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
 }
