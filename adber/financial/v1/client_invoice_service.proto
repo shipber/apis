@@ -15,6 +15,7 @@ service ClientInvoiceService {
   rpc SaveClientInvoiceSchedule (SaveClientInvoiceScheduleRequest) returns (SaveClientInvoiceScheduleReply);
   rpc GetClientInvoiceSchedule (GetClientInvoiceScheduleRequest) returns (GetClientInvoiceScheduleReply);
   rpc CreateClientInvoice (CreateClientInvoiceRequest) returns (CreateClientInvoiceReply);
+  rpc RefreshClientInvoice (RefreshClientInvoiceRequest) returns (RefreshClientInvoiceReply);
 }
 
 message ListClientInvoiceRequest {
@@ -87,6 +88,17 @@ message ListClientInvoiceReply {
     google.protobuf.Timestamp transaction_end_time = 9;
     // 账单ID
     int32 id = 10;
+    message BillAddress {
+      string name = 1;
+      string company = 2;
+      string address = 3;
+      string mobile = 4;
+      string email = 5;
+    }
+    // bill from
+    BillAddress bill_from = 11;
+    // bill to
+    BillAddress bill_to = 12;
   }
   repeated ClientInvoice nodes = 2;
 }
@@ -170,5 +182,12 @@ message CreateClientInvoiceRequest {
   google.protobuf.Timestamp transaction_time_lte = 4;
 }
 message CreateClientInvoiceReply {
+  repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
+}
+
+message RefreshClientInvoiceRequest {
+  repeated int32 client_invoice_ids = 1;
+}
+message RefreshClientInvoiceReply {
   repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
 }
