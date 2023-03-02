@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+package adber.account.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "api/account/v1;v1";
+option java_multiple_files = true;
+option java_package = "adber.account.v1";
+
+service SavedSearchService {
+  rpc ListSavedSearch(ListSavedSearchRequest) returns (ListSavedSearchReply);
+  rpc CreateSavedSearch(CreateSavedSearchRequest) returns (CreateSavedSearchReply);
+  rpc UpdateSavedSearch(UpdateSavedSearchRequest) returns (UpdateSavedSearchReply);
+  rpc UpdateSavedIndexSearch(UpdateSavedSearchIndexRequest) returns (UpdateSavedSearchIndexReply);
+  rpc DeleteSavedSearch(DeleteSavedSearchRequest) returns (DeleteSavedSearchReply);
+}
+
+message ResourceTypeEnum {
+  enum ResourceType {
+    UNKNOWN = 0;
+    // 商品列表
+    PRODUCT = 1;
+    // 订单列表
+    ORDER = 2;
+    // 流水
+    BILL_TRANSACTION = 3;
+    // 充值
+    BILL_DEPOSIT = 4;
+    // 杂费
+    BILL_ENTRY = 5;
+    // 贷款
+    BILL_LOAN = 6;
+    // 退款
+    BILL_REFUND = 7;
+    // 客户账单
+    BILL_CLIENT_INVOICE = 8;
+    // 运单草稿
+    SHIPMENT_DRAFT = 9;
+    // 运单历史
+    SHIPMENT_HISTORY = 11;
+    // 退款单
+    SHIPMENT_RETURN = 12;
+    // 追踪号
+    SHIPMENT_TRACKING = 13;
+    // shipment 地址修正
+    SHIPMENT_ADDRESS_CORRECTION = 14;
+    // 入库申请单
+    ORDER_INBOUND_REQUEST_FORM = 15;
+    // 账单
+    INVOICE = 16;
+    // 账单明细
+    INVOICE_DETAIL = 17;
+    // 账单-申述单
+    INVOICE_DISPUTE_SHIPMENT = 18;
+    // 仓库库位
+    WAREHOUSE_LOCATION = 19;
+    // 仓库库存
+    WAREHOUSE_INVENTORY = 20;
+    // 仓库入库单
+    WAREHOUSE_INBOUND = 21;
+    // 仓库出库单
+    WAREHOUSE_OUTBOUND = 22;
+  }
+}
+
+message SavedSearch {
+  // ID
+  int32 id = 1;
+  // 品牌ID
+  int32 brand_id = 2;
+  // 用户ID
+  int32 user_id = 3;
+  // 资源类型
+  ResourceTypeEnum.ResourceType resource_type = 4;
+  // Tab标签页名称
+  string tab_name = 5;
+  // Tab标签页序号
+  int32 tab_index = 6;
+  // 搜索条件命名
+  string name = 7;
+  // 关键词
+  string key = 8;
+  // 字段
+  string display = 9;
+  // 条件
+  string filters = 10;
+  // 创建时间
+  google.protobuf.Timestamp created_at = 11;
+  // 更新时间
+  google.protobuf.Timestamp updated_at = 12;
+}
+
+message ListSavedSearchRequest {
+  repeated ResourceTypeEnum.ResourceType resource_types = 1;
+  repeated int32 brand_ids = 2;
+  repeated int32 user_ids = 3;
+  repeated string keys = 4;
+}
+message ListSavedSearchReply {
+  repeated SavedSearch nodes = 1;
+}
+
+message CreateSavedSearchRequest {
+  // 品牌ID
+  int32 brand_id = 1;
+  // 用户ID
+  int32 user_id = 2;
+  // 资源类型
+  ResourceTypeEnum.ResourceType resource_type = 3;
+  // Tab标签页名称
+  string tab_name = 4;
+  // Tab标签页序号
+  int32 tab_index = 5;
+  // 搜索条件命名
+  string name = 6;
+  // 关键词
+  string key = 7;
+  // 字段
+  string display = 8;
+  // 条件
+  string filters = 9;
+}
+message CreateSavedSearchReply {
+  SavedSearch node = 1;
+}
+
+message UpdateSavedSearchRequest {
+  int32 id = 1;
+  // 品牌ID
+  int32 brand_id = 2;
+  // 用户ID
+  int32 user_id = 3;
+  // 资源类型
+  optional ResourceTypeEnum.ResourceType resource_type = 4;
+  // Tab标签页名称
+  optional string tab_name = 5;
+  // Tab标签页序号
+  optional int32 tab_index = 6;
+  // 搜索条件命名
+  optional string name = 7;
+  // 关键词
+  optional string key = 8;
+  // 字段
+  optional string display = 9;
+  // 条件
+  optional string filters = 10;
+}
+message UpdateSavedSearchReply {
+  SavedSearch node = 1;
+}
+
+message UpdateSavedSearchIndexRequest {
+  // 按照IDS的顺序排序
+  repeated int32 ids = 1;
+}
+message UpdateSavedSearchIndexReply {
+  repeated SavedSearch nodes = 1;
+}
+
+message DeleteSavedSearchRequest {
+  repeated int32 ids = 1;
+}
+message DeleteSavedSearchReply {
+  bool deleted = 1;
+}
