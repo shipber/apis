@@ -16,6 +16,7 @@ service ClientInvoiceService {
   rpc GetClientInvoiceSchedule (GetClientInvoiceScheduleRequest) returns (GetClientInvoiceScheduleReply);
   rpc CreateClientInvoice (CreateClientInvoiceRequest) returns (CreateClientInvoiceReply);
   rpc RefreshClientInvoiceBillInfo (RefreshClientInvoiceBillInfoRequest) returns (RefreshClientInvoiceBillInfoReply);
+  rpc UpdateClientInvoice (UpdateClientInvoiceRequest) returns (UpdateClientInvoiceReplay);
 }
 
 message ListClientInvoiceRequest {
@@ -94,6 +95,8 @@ message ListClientInvoiceReply {
       string address = 3;
       string mobile = 4;
       string email = 5;
+      // 以上信息来源于哪个用户
+      int32 user_id = 6;
     }
     // bill from
     BillAddress bill_from = 11;
@@ -189,5 +192,17 @@ message RefreshClientInvoiceBillInfoRequest {
   repeated int32 client_invoice_ids = 1;
 }
 message RefreshClientInvoiceBillInfoReply {
+  repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
+}
+
+message UpdateClientInvoiceRequest {
+  repeated int32 ids = 1;
+  optional ClientInvoiceStatusEnum.ClientInvoiceStatus status = 2;
+  // bill from
+  ListClientInvoiceReply.ClientInvoice.BillAddress bill_from = 3;
+  // bill to
+  ListClientInvoiceReply.ClientInvoice.BillAddress bill_to = 4;
+}
+message UpdateClientInvoiceReplay {
   repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
 }
