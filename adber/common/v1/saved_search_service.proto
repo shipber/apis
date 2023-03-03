@@ -91,6 +91,8 @@ message SavedSearch {
   google.protobuf.Timestamp updated_at = 12;
   // 是否锁定
   bool is_locked = 13;
+  // 搜索项设置
+  string query_settings = 14;
 }
 
 message ListSavedSearchRequest {
