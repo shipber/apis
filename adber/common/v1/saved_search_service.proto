@@ -124,6 +124,8 @@ message CreateSavedSearchRequest {
   string display = 8;
   // 条件
   string filters = 9;
+  // 搜索项设置
+  string query_settings = 10;
 }
 message CreateSavedSearchReply {
   SavedSearch node = 1;
@@ -151,6 +153,8 @@ message UpdateSavedSearchRequest {
   optional string filters = 10;
   // 是否锁定
   optional bool is_locked = 11;
+  // 搜索项设置
+  optional string query_settings = 12;
 }
 message UpdateSavedSearchReply {
   SavedSearch node = 1;
