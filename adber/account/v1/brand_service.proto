@@ -142,6 +142,10 @@ message ListMemberReply {
     google.protobuf.Timestamp created_at = 11;
     // 随机6位ID
     int64 random_id = 12;
+    // firstname
+    string firstname = 13;
+    // lastname
+    string lastname = 14;
   }
   int32 total_count = 1;
   repeated Member nodes = 2;
