@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package adber.financial.v1;
+
+import "google/protobuf/timestamp.proto";
+import "adber/financial/v1/transaction_service.proto";
+
+option go_package = "api/financial/v1;v1";
+option java_multiple_files = true;
+option java_package = "adber.financial.v1";
+
+service ClientInvoiceTaskService {
+  rpc ListClientInvoiceTask(ListClientInvoiceTaskRequest) returns (ListClientInvoiceTaskReply);
+  rpc CreateClientInvoiceTask(CreateClientInvoiceTaskRequest) returns (CreateClientInvoiceTaskReply);
+  rpc UpdateClientInvoiceTask(UpdateClientInvoiceTaskRequest) returns (UpdateClientInvoiceTaskReply);
+  rpc DeleteClientInvoiceTask(DeleteClientInvoiceTaskRequest) returns (DeleteClientInvoiceTaskReply);
+}
+
+message ClientInvoiceTask {
+  enum Period {
+    ONCE = 0;
+    MINUTELY = 1;
+    HOURLY = 2;
+    DAILY = 3;
+    WEEKLY = 4;
+    MONTHLY = 5;
+    QUARTERLY = 6;
+  }
+  message EventType {
+    enum SplitBy {
+      // 不拆分
+      NONE = 0;
+      // 按照仓库拆分
+      WAREHOUSE = 1;
+      // 按照合约账号拆分
+      CONTRACT_ACCOUNT = 2;
+    }
+    // 时间类型
+    Transaction.EventType event_type = 1;
+    // 拆分方式
+    SplitBy split_by = 2;
+  }
+  enum Status {
+    DISABLED = 0;
+    ENABLED = 1;
+  }
+  // 品牌ID
+  int32 brand_id = 1;
+  // 管理员用户ID
+  int32 created_by = 2;
+  // 名称
+  string name = 3;
+  // 周期
+  Period period = 4;
+  // 空数组表示所有客户
+  repeated int32 selected_clients = 5;
+  // 已选择的transaction event_type
+  repeated EventType selected_event_types = 6;
+  // 是否合并event_type到一个账单
+  bool combine_event_types = 7;
+  // Cron 标准表达式, ? L W 只有部分软件实现了
+  string cronspec = 8;
+  // transaction 开始时间
+  optional google.protobuf.Timestamp transaction_time_gte = 9;
+  // transaction 结束时间
+  optional google.protobuf.Timestamp transaction_time_lte = 10;
+  // 状态
+  Status status = 11;
+  // ID
+  int32 id = 12;
+  // Sender id
+  int32 sender_id = 13;
+  // IANA 时区名称 (see https://www.iana.org/time-zones)
+  string timezone = 14;
+}
+
+message ListClientInvoiceTaskRequest {
+  message Filters {
+    optional int32 brand_id = 1;
+    repeated ClientInvoiceTask.Period periods = 2;
+    repeated ClientInvoiceTask.Status status = 3;
+  }
+  Filters filters = 1;
+}
+message ListClientInvoiceTaskReply {
+  repeated ClientInvoiceTask nodes = 1;
+}
+
+message CreateClientInvoiceTaskRequest {
+  // 品牌ID
+  int32 brand_id = 1;
+  // 管理员用户ID
+  int32 created_by = 2;
+  // 名称
+  string name = 3;
+  // 周期
+  ClientInvoiceTask.Period period = 4;
+  // 空数组表示所有客户
+  repeated int32 selected_clients = 5;
+  // 已选择的transaction event_type
+  repeated ClientInvoiceTask.EventType selected_event_types = 6;
+  // 是否合并event_type到一个账单
+  bool combine_event_types = 7;
+  // Cron 标准表达式, ? L W 只有部分软件实现了
+  string cronspec = 8;
+  // transaction 开始时间
+  optional google.protobuf.Timestamp transaction_time_gte = 9;
+  // transaction 结束时间
+  optional google.protobuf.Timestamp transaction_time_lte = 10;
+  // 发送者
+  int32 sender_id = 11;
+  // IANA 时区名称 (see https://www.iana.org/time-zones)
+  string timezone = 12;
+}
+message CreateClientInvoiceTaskReply{
+  ClientInvoiceTask node = 1;
+}
+
+message UpdateClientInvoiceTaskRequest {
+  // ID
+  int32 id = 1;
+  // 周期
+  optional ClientInvoiceTask.Period period = 2;
+  // 空数组表示所有客户
+  repeated int32 selected_clients = 3;
+  // 已选择的transaction event_type
+  repeated ClientInvoiceTask.EventType selected_event_types = 4;
+  // 是否合并event_type到一个账单
+  optional bool combine_event_types = 5;
+  // Cron 标准表达式, ? L W 只有部分软件实现了
+  optional string cronspec = 6;
+  // transaction 开始时间
+  optional google.protobuf.Timestamp transaction_time_gte = 7;
+  // transaction 结束时间
+  optional google.protobuf.Timestamp transaction_time_lte = 8;
+  // sender_id
+  optional int32 sender_id = 9;
+  // IANA 时区名称 (see https://www.iana.org/time-zones)
+  optional string timezone = 10;
+  // name
+  optional string name = 11;
+  // 状态
+  optional ClientInvoiceTask.Status status = 12;
+}
+message UpdateClientInvoiceTaskReply {
+  ClientInvoiceTask node = 1;
+}
+
+message DeleteClientInvoiceTaskRequest {
+  // ID
+  repeated int32 ids = 1;
+}
+message DeleteClientInvoiceTaskReply {
+  // 删除行数
+  int32 deleted = 1;
+}

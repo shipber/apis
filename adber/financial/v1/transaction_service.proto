@@ -4,7 +4,6 @@ package adber.financial.v1;
 
 import "google/protobuf/timestamp.proto";
 import "adber/financial/v1/amount.proto";
-import "adber/financial/v1/enums.proto";
 
 option go_package = "api/financial/v1;v1";
 option java_multiple_files = true;
@@ -14,6 +13,37 @@ service TransactionService {
   rpc ListTransaction (ListTransactionRequest) returns (ListTransactionReply);
   rpc ListTransactionInvoiceNumber (ListTransactionInvoiceNumberRequest) returns (ListTransactionInvoiceNumberReply);
   rpc DownloadTransaction (ListTransactionRequest) returns (DownloadTransactionReply);
+}
+
+message Transaction {
+  enum EventType {
+    DEPOSIT = 0;
+    LOAN = 1;
+    SHIPMENT = 2;
+    ENTRY = 3;
+    FULFILLMENT = 4;
+  }
+  int32 id = 1;
+  // 品牌ID
+  int32 brand_id = 2;
+  // 用户ID
+  int32 user_id = 3;
+  // 交易流水号
+  string transaction_number = 4;
+  // 交易流水金额
+  Amount amount = 5;
+  // 余额
+  Amount balance = 6;
+  // 交易事件类型
+  Transaction.EventType event_type = 7;
+  // 交易事件名称
+  string event_name = 8;
+  // 事件号
+  string event_num = 9;
+  // 备注
+  string remark = 10;
+  // 时间
+  google.protobuf.Timestamp created_at = 11;
 }
 
 message ListTransactionRequest {
@@ -29,7 +59,7 @@ message ListTransactionRequest {
   // 是否颠倒顺序（true为倒序/降序）
   bool reverse = 4;
   // 事件类型
-  repeated TransactionEventTypeEnum.TransactionEventType event_types = 5;
+  repeated Transaction.EventType event_types = 5;
   // 事件名称
   repeated string event_names = 6;
   // 起始金额
@@ -64,29 +94,6 @@ message ListTransactionRequest {
   optional google.protobuf.Timestamp date_lte = 22;
 }
 message ListTransactionReply {
-  message Transaction {
-    int32 id = 1;
-    // 品牌ID
-    int32 brand_id = 2;
-    // 用户ID
-    int32 user_id = 3;
-    // 交易流水号
-    string transaction_number = 4;
-    // 交易流水金额
-    Amount amount = 5;
-    // 余额
-    Amount balance = 6;
-    // 交易事件类型
-    TransactionEventTypeEnum.TransactionEventType event_type = 7;
-    // 交易事件名称
-    string event_name = 8;
-    // 事件号
-    string event_num = 9;
-    // 备注
-    string remark = 10;
-    // 时间
-    google.protobuf.Timestamp created_at = 11;
-  }
   int32 total_count = 1;
   repeated Transaction nodes = 2;
 }

@@ -4,7 +4,6 @@ package adber.financial.v1;
 
 import "google/protobuf/timestamp.proto";
 import "adber/financial/v1/amount.proto";
-import "adber/financial/v1/enums.proto";
 
 option go_package = "api/financial/v1;v1";
 option java_multiple_files = true;
@@ -12,11 +11,68 @@ option java_package = "adber.financial.v1";
 
 service ClientInvoiceService {
   rpc ListClientInvoice (ListClientInvoiceRequest) returns (ListClientInvoiceReply);
-  rpc SaveClientInvoiceSchedule (SaveClientInvoiceScheduleRequest) returns (SaveClientInvoiceScheduleReply);
-  rpc GetClientInvoiceSchedule (GetClientInvoiceScheduleRequest) returns (GetClientInvoiceScheduleReply);
   rpc CreateClientInvoice (CreateClientInvoiceRequest) returns (CreateClientInvoiceReply);
   rpc RefreshClientInvoiceBillInfo (RefreshClientInvoiceBillInfoRequest) returns (RefreshClientInvoiceBillInfoReply);
   rpc UpdateClientInvoice (UpdateClientInvoiceRequest) returns (UpdateClientInvoiceReplay);
+}
+
+message ClientInvoice {
+  enum Type {
+    SHIPMENT = 0;
+    ENTRY = 1;
+    FULFILLMENT = 2;
+    DEPOSIT = 3;
+    LOAN = 4;
+  }
+  enum Status {
+    VOIDED = 0;
+    COMPLETED = 1;
+  }
+  message Item {
+    // 名称
+    string name = 1;
+    // 描述
+    string description = 2;
+    // 金额
+    Amount amount = 3;
+    // 数量
+    int32 qty = 4;
+    // 费率
+    float rate = 5;
+  }
+  message BillAddress {
+    string name = 1;
+    string company = 2;
+    string address = 3;
+    string mobile = 4;
+    string email = 5;
+    // 以上信息来源于哪个用户
+    int32 user_id = 6;
+  }
+  // 用户ID
+  int32 brand_id = 1;
+  // 用户ID
+  int32 user_id = 2;
+  // 账单号
+  string invoice_number = 3;
+  // 账单日期
+  google.protobuf.Timestamp invoice_date = 4;
+  // 类型
+  Type invoice_type = 5;
+  // 状态
+  Status status = 6;
+  // 账单内容
+  repeated Item items = 7;
+  // 流水起始时间
+  google.protobuf.Timestamp transaction_start_time = 8;
+  // 流水结束时间
+  google.protobuf.Timestamp transaction_end_time = 9;
+  // 账单ID
+  int32 id = 10;
+  // bill from
+  BillAddress bill_from = 11;
+  // bill to
+  BillAddress bill_to = 12;
 }
 
 message ListClientInvoiceRequest {
@@ -50,128 +106,13 @@ message ListClientInvoiceRequest {
   // 用户ID
   repeated int32 user_ids = 13;
   // 账单状态
-  repeated ClientInvoiceStatusEnum.ClientInvoiceStatus status = 14;
+  repeated ClientInvoice.Status status = 14;
   // 账单类型
-  repeated ClientInvoiceTypeEnum.ClientInvoiceType types = 15;
+  repeated ClientInvoice.Type types = 15;
 }
 message ListClientInvoiceReply {
   int32 total_count = 1;
-  message ClientInvoice {
-    // 用户ID
-    int32 brand_id = 1;
-    // 用户ID
-    int32 user_id = 2;
-    // 账单号
-    string invoice_number = 3;
-    // 账单日期
-    google.protobuf.Timestamp invoice_date = 4;
-    // 类型
-    ClientInvoiceTypeEnum.ClientInvoiceType invoice_type = 5;
-    // 状态
-    ClientInvoiceStatusEnum.ClientInvoiceStatus status = 6;
-    message Item {
-      // 名称
-      string name = 1;
-      // 描述
-      string description = 2;
-      // 金额
-      Amount amount = 3;
-      // 数量
-      int32 qty = 4;
-      // 费率
-      float rate = 5;
-    }
-    // 账单内容
-    repeated Item items = 7;
-    // 流水起始时间
-    google.protobuf.Timestamp transaction_start_time = 8;
-    // 流水结束时间
-    google.protobuf.Timestamp transaction_end_time = 9;
-    // 账单ID
-    int32 id = 10;
-    message BillAddress {
-      string name = 1;
-      string company = 2;
-      string address = 3;
-      string mobile = 4;
-      string email = 5;
-      // 以上信息来源于哪个用户
-      int32 user_id = 6;
-    }
-    // bill from
-    BillAddress bill_from = 11;
-    // bill to
-    BillAddress bill_to = 12;
-  }
   repeated ClientInvoice nodes = 2;
-}
-
-message SaveClientInvoiceScheduleRequest {
-  // 用户ID
-  int32 brand_id = 1;
-  // 用户ID
-  int32 user_id = 2;
-  // 周期
-  ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
-  // 是否启用
-  bool is_active = 4;
-  // cron 标准表达式的 minutes
-  string minutes = 5;
-  // cron 标准表达式的 hours
-  string hours = 6;
-  // cron 标准表达式的 day of month
-  string dom = 7;
-  // cron 标准表达式的 month month (1 - 12) OR jan,feb,mar,apr ...
-  string month = 8;
-  // cron 标准表达式的 day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-  string dow = 9;
-}
-message SaveClientInvoiceScheduleReply {
-  // 用户ID
-  int32 brand_id = 1;
-  // 用户ID
-  int32 user_id = 2;
-  // 周期
-  ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
-  // 是否启用
-  bool is_active = 4;
-  // cron 标准表达式的 minutes
-  string minutes = 5;
-  // cron 标准表达式的 hours
-  string hours = 6;
-  // cron 标准表达式的 day of month
-  string dom = 7;
-  // cron 标准表达式的 month month (1 - 12) OR jan,feb,mar,apr ...
-  string month = 8;
-  // cron 标准表达式的 day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-  string dow = 9;
-}
-
-message GetClientInvoiceScheduleRequest {
-  // 品牌ID
-  int32 brand_id = 1;
-  // 用户ID
-  int32  user_id = 2;
-}
-message GetClientInvoiceScheduleReply {
-  // 用户ID
-  int32 brand_id = 1;
-  // 用户ID
-  int32 user_id = 2;
-  // 周期
-  ClientInvoicePeriodEnum.ClientInvoicePeriod period = 3;
-  // 是否启用
-  bool is_active = 4;
-  // cron 标准表达式的 minutes
-  string minutes = 5;
-  // cron 标准表达式的 hours
-  string hours = 6;
-  // cron 标准表达式的 day of month
-  string dom = 7;
-  // cron 标准表达式的 month month (1 - 12) OR jan,feb,mar,apr ...
-  string month = 8;
-  // cron 标准表达式的 day of week (0 - 7) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
-  string dow = 9;
 }
 
 message CreateClientInvoiceRequest {
@@ -185,24 +126,25 @@ message CreateClientInvoiceRequest {
   google.protobuf.Timestamp transaction_time_lte = 4;
 }
 message CreateClientInvoiceReply {
-  repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
+  repeated ClientInvoice nodes = 1;
 }
 
 message RefreshClientInvoiceBillInfoRequest {
   repeated int32 client_invoice_ids = 1;
 }
 message RefreshClientInvoiceBillInfoReply {
-  repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
+  repeated ClientInvoice nodes = 1;
 }
 
 message UpdateClientInvoiceRequest {
   repeated int32 ids = 1;
-  optional ClientInvoiceStatusEnum.ClientInvoiceStatus status = 2;
+  // 状态
+  optional ClientInvoice.Status status = 2;
   // bill from
-  ListClientInvoiceReply.ClientInvoice.BillAddress bill_from = 3;
+  ClientInvoice.BillAddress bill_from = 3;
   // bill to
-  ListClientInvoiceReply.ClientInvoice.BillAddress bill_to = 4;
+  ClientInvoice.BillAddress bill_to = 4;
 }
 message UpdateClientInvoiceReplay {
-  repeated ListClientInvoiceReply.ClientInvoice nodes = 1;
+  repeated ClientInvoice nodes = 1;
 }
