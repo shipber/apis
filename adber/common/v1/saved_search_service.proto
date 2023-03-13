@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package adber.account.v1;
+package adber.common.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "api/account/v1;v1";
+option go_package = "api/common/v1;v1";
 option java_multiple_files = true;
-option java_package = "adber.account.v1";
+option java_package = "adber.common.v1";
 
 service SavedSearchService {
   rpc ListSavedSearch(ListSavedSearchRequest) returns (ListSavedSearchReply);
@@ -89,6 +89,10 @@ message SavedSearch {
   google.protobuf.Timestamp created_at = 11;
   // 更新时间
   google.protobuf.Timestamp updated_at = 12;
+  // 是否锁定
+  bool is_locked = 13;
+  // 搜索项设置
+  string query_settings = 14;
 }
 
 message ListSavedSearchRequest {
@@ -120,6 +124,10 @@ message CreateSavedSearchRequest {
   string display = 8;
   // 条件
   string filters = 9;
+  // 是否锁定
+  bool is_locked = 10;
+  // 搜索项设置
+  string query_settings = 11;
 }
 message CreateSavedSearchReply {
   SavedSearch node = 1;
@@ -145,6 +153,10 @@ message UpdateSavedSearchRequest {
   optional string display = 9;
   // 条件
   optional string filters = 10;
+  // 是否锁定
+  optional bool is_locked = 11;
+  // 搜索项设置
+  optional string query_settings = 12;
 }
 message UpdateSavedSearchReply {
   SavedSearch node = 1;
