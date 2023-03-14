@@ -41,13 +41,30 @@ message ClientInvoice {
     float rate = 5;
   }
   message BillAddress {
+    // 客户名称
     string name = 1;
+    // 公司名称
     string company = 2;
+    // 地址1
     string address = 3;
+    // 电话
     string mobile = 4;
+    // 邮箱
     string email = 5;
-    // 以上信息来源于哪个用户
+    // 以上信息来源
     int32 user_id = 6;
+    // 地址2
+    string address2 = 7;
+    // 地址3
+    string address3 = 8;
+    // 邮编
+    string postal_code = 9;
+    // 国家代码
+    string countryCode = 10;
+    // 州省代码
+    string stateCode = 11;
+    // 城市
+    string city = 12;
   }
   // 用户ID
   int32 brand_id = 1;
