@@ -73,6 +73,10 @@ message ClientInvoice {
   BillAddress bill_from = 11;
   // bill to
   BillAddress bill_to = 12;
+  // 时区
+  string timezone = 13;
+  // 关联任务ID
+  int32 task_id = 14;
 }
 
 message ListClientInvoiceRequest {
@@ -131,13 +135,15 @@ message CreateClientInvoiceReply {
 
 message RefreshClientInvoiceBillInfoRequest {
   repeated int32 client_invoice_ids = 1;
+  bool bill_from = 2;
+  bool bill_to = 3;
 }
 message RefreshClientInvoiceBillInfoReply {
   repeated ClientInvoice nodes = 1;
 }
 
 message UpdateClientInvoiceRequest {
-  repeated int32 ids = 1;
+  int32 id = 1;
   // 状态
   optional ClientInvoice.Status status = 2;
   // bill from
@@ -146,5 +152,5 @@ message UpdateClientInvoiceRequest {
   ClientInvoice.BillAddress bill_to = 4;
 }
 message UpdateClientInvoiceReplay {
-  repeated ClientInvoice nodes = 1;
+  ClientInvoice node = 1;
 }

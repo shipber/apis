@@ -79,6 +79,7 @@ message ListClientInvoiceTaskRequest {
     optional int32 brand_id = 1;
     repeated ClientInvoiceTask.Period periods = 2;
     repeated ClientInvoiceTask.Status status = 3;
+    repeated int32 ids = 4;
   }
   Filters filters = 1;
 }
