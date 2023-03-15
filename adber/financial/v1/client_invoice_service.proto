@@ -35,6 +35,8 @@ message ClientInvoice {
     int32 qty = 4;
     // 费率
     float rate = 5;
+    // 账单ID
+    int32 clientInvoiceId = 6;
   }
   message BillAddress {
     // 客户名称
