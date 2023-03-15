@@ -4,6 +4,7 @@ package adber.financial.v1;
 
 import "google/protobuf/timestamp.proto";
 import "adber/financial/v1/amount.proto";
+import "adber/financial/v1/transaction_service.proto";
 
 option go_package = "api/financial/v1;v1";
 option java_multiple_files = true;
@@ -11,19 +12,14 @@ option java_package = "adber.financial.v1";
 
 service ClientInvoiceService {
   rpc ListClientInvoice (ListClientInvoiceRequest) returns (ListClientInvoiceReply);
-  rpc CreateClientInvoice (CreateClientInvoiceRequest) returns (CreateClientInvoiceReply);
   rpc RefreshClientInvoiceBillInfo (RefreshClientInvoiceBillInfoRequest) returns (RefreshClientInvoiceBillInfoReply);
   rpc UpdateClientInvoice (UpdateClientInvoiceRequest) returns (UpdateClientInvoiceReplay);
+  rpc ListClientInvoiceItem (ListClientInvoiceItemRequest) returns (ListClientInvoiceItemReply);
 }
 
 message ClientInvoice {
-  enum Type {
-    SHIPMENT = 0;
-    ENTRY = 1;
-    FULFILLMENT = 2;
-    DEPOSIT = 3;
-    LOAN = 4;
-  }
+  reserved 5, 7;
+
   enum Status {
     VOIDED = 0;
     COMPLETED = 1;
@@ -74,12 +70,8 @@ message ClientInvoice {
   string invoice_number = 3;
   // 账单日期
   google.protobuf.Timestamp invoice_date = 4;
-  // 类型
-  Type invoice_type = 5;
   // 状态
   Status status = 6;
-  // 账单内容
-  repeated Item items = 7;
   // 流水起始时间
   google.protobuf.Timestamp transaction_start_time = 8;
   // 流水结束时间
@@ -128,26 +120,12 @@ message ListClientInvoiceRequest {
   repeated int32 user_ids = 13;
   // 账单状态
   repeated ClientInvoice.Status status = 14;
-  // 账单类型
-  repeated ClientInvoice.Type types = 15;
+  //
+  repeated Transaction.EventType event_types = 15;
 }
 message ListClientInvoiceReply {
   int32 total_count = 1;
   repeated ClientInvoice nodes = 2;
-}
-
-message CreateClientInvoiceRequest {
-  // 品牌ID
-  int32 brand_id = 1;
-  // 用户ID
-  int32 user_id = 2;
-  // 交易流水起始范围
-  google.protobuf.Timestamp transaction_time_gte = 3;
-  // 交易流水终止范围
-  google.protobuf.Timestamp transaction_time_lte = 4;
-}
-message CreateClientInvoiceReply {
-  repeated ClientInvoice nodes = 1;
 }
 
 message RefreshClientInvoiceBillInfoRequest {
@@ -170,4 +148,11 @@ message UpdateClientInvoiceRequest {
 }
 message UpdateClientInvoiceReplay {
   ClientInvoice node = 1;
+}
+
+message ListClientInvoiceItemRequest {
+  repeated int32 client_invoice_ids = 1;
+}
+message ListClientInvoiceItemReply {
+  repeated ClientInvoice.Item nodes = 1;
 }
