@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package adber.account.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "api/account/v1;v1";
+option java_multiple_files = true;
+option java_package = "adber.account.v1";
+
+service BrandMemberService {
+  rpc ListMember (ListMemberRequest) returns (ListMemberReply);
+  rpc ValidateMember (ValidateMemberRequest) returns (ValidateMemberReply);
+}
+
+message BrandMember {
+  enum Role {
+    UNKNOWN = 0;
+    // 品牌拥有者
+    OWNER = 1;
+    // 品牌管理员
+    ADMIN = 2;
+    // 客户
+    CLIENT = 3;
+    // 游客
+    GUEST = 4;
+    // 员工
+    STAFF = 5;
+  }
+  // 品牌ID
+  int32 brand_id = 1;
+  // 用户ID
+  int32 user_id = 2;
+  // 用户名
+  string name = 3;
+  // email
+  string email = 4;
+  // 角色
+  Role role = 5;
+  // 地址
+  string address = 6;
+  // 移动电话
+  string mobile = 7;
+  // 公司
+  string company = 8;
+  // 使用 user_id 替代
+  int32 brand_user_id = 9 [deprecated = true];
+  // 头像
+  string avatar = 10;
+  // 创建时间
+  google.protobuf.Timestamp created_at = 11;
+  // 随机6位ID
+  int64 random_id = 12;
+  // firstname
+  string firstname = 13;
+  // lastname
+  string lastname = 14;
+  // 邮编
+  string postal_code = 15;
+  // 国家代码 ISO 3166_1 两位代码
+  string country_code = 16;
+  // 州省代码
+  string state_code = 17;
+  // 城市名称
+  string city = 18;
+  // IANA 时区名称
+  string timezone = 19;
+}
+
+message ListMemberRequest {
+  // 每页数量
+  int32 limit = 1;
+  // 跳过数量
+  int32 offset = 2;
+  // 排序字段
+  enum SortKey {
+    CREATED_AT = 0;
+  }
+  optional SortKey sort_key = 3;
+  // 是否颠倒顺序（true为倒序/降序）
+  bool reverse = 4;
+  // 品牌ID
+  repeated int32 brand_ids = 5;
+  // 用户ID
+  repeated int32 user_ids = 6;
+  // 使用 user_ids 替代
+  repeated int32 brand_user_ids = 7 [deprecated = true];
+  // 是否已经禁用/删除
+  optional bool deleted = 8;
+  // 角色
+  repeated BrandMember.Role roles = 9;
+  // 邮箱
+  repeated string emails = 10;
+}
+message ListMemberReply {
+  int32 total_count = 1;
+  repeated BrandMember nodes = 2;
+}
+
+message ValidateMemberRequest {
+  // 品牌
+  int32 brand_id = 1;
+  // 邮箱
+  string username = 2;
+  // 密码
+  string password = 3;
+}
+message ValidateMemberReply {
+    BrandMember node = 1;
+}
