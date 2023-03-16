@@ -50,7 +50,7 @@ message BrandMember {
   // 创建时间
   google.protobuf.Timestamp created_at = 11;
   // 随机6位ID
-  int64 random_id = 12;
+  int32 random_id = 12;
   // firstname
   string firstname = 13;
   // lastname
