@@ -88,6 +88,8 @@ message ClientInvoice {
   string timezone = 13;
   // 关联任务ID
   int32 task_id = 14;
+  // 金额
+  float amount = 15;
 }
 
 message ListClientInvoiceRequest {
