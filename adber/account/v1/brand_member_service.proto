@@ -99,6 +99,8 @@ message ListMemberRequest {
   repeated BrandMember.Role roles = 9;
   // 邮箱
   repeated string emails = 10;
+  // 注册状态
+  optional BrandMember.RegisterStatus register_status = 11;
 }
 message ListMemberReply {
   int32 total_count = 1;
